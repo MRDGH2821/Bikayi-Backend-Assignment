@@ -4,6 +4,7 @@ const port = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 const uri = "mongodb://localhost/bikayi-backend";
 const Customer = require("./api/models/customerModel");
+const PurchaseOrder = require("./api/models/PurchaseOrderModel");
 
 mongoose
 	.connect(uri, {
@@ -20,8 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const customerRoutes = require("./api/routes/customerRoutes");
-
+const purchaseOrderRoutes = require("./api/routes/purchaseOrderRoutes");
 customerRoutes(app);
+purchaseOrderRoutes(app);
 
 app.get("*", (req, res) => {
 	res.status(404).send({ url: req.originalUrl + "not found" });
