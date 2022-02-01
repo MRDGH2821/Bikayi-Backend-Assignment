@@ -9,11 +9,18 @@ exports.list_all_order = (req, res) => {
 	});
 };
 exports.create_purchase = (req, res) => {
-	let new_purchase = new PurchaseOrder(req.body);
-	new_purchase.save((err, purchase) => {
-		if (err) res.send(err);
-		res.json(purchase);
-	});
+	const order = req.body;
+	if (order.pricing > order.MRP) {
+		res.json({
+			message: "Selling price cannot be greater than MRP!",
+		});
+	} else {
+		let new_purchase = new PurchaseOrder(req.body);
+		new_purchase.save((err, purchase) => {
+			if (err) res.send(err);
+			res.json(purchase);
+		});
+	}
 };
 exports.read_purchase = (req, res) => {
 	PurchaseOrder.findById(req.params.orderId, (err, order) => {
