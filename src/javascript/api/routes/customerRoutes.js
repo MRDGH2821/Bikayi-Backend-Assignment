@@ -12,4 +12,5 @@ module.exports = (app) => {
 		.put(customer.update_customer)
 		.delete(customer.delete_customer);
 	app.route("/customer/orders").get(customer.customer_orders);
+	app.route("/customers/shipment/:city").get(customer.customer_shipment_filter);
 };

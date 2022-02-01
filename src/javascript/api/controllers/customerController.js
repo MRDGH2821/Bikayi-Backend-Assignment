@@ -57,8 +57,6 @@ exports.customer_orders = (req, res) => {
 				as: "purchaseOrder",
 			},
 		},
-
-
 	]).exec((err, result) => {
 		if (err) {
 			res.send(err);
@@ -73,4 +71,39 @@ exports.customer_orders = (req, res) => {
 			console.log(err);
 		});
 		*/
+};
+
+exports.customer_shipment_filter = (req, res) => {
+	const agg = [
+		{
+			$lookup: {
+				from: "shippingdetails",
+				localField: "customerId",
+				foreignField: "customerId",
+				as: "shippingdetails",
+			},
+		},
+		{
+			$project: {
+				_id: 0,
+				Created_date: 0,
+				__v: 0,
+				shippingdetails: {
+					_id: 0,
+					customerId: 0,
+					Created_date: 0,
+					__v: 0,
+				},
+			},
+		},
+	];
+	Customer.aggregate(agg).exec((err, result) => {
+		if (err) {
+			res.send(err);
+		} else {
+			const city = req.params.city;
+			console.log(result);
+			res.send(result);
+		}
+	});
 };
