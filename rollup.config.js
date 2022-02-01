@@ -4,7 +4,7 @@ import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 export default {
-	input: 'src/index.ts',
+	input: 'src/typescript/index.ts',
 	output: [{
 		format: 'esm',
 		file: pkg.module,
