@@ -16,14 +16,14 @@ exports.create_customer = (req, res) => {
 	});
 };
 exports.read_customer = (req, res) => {
-	Customer.findById(req.params.bookId, (err, customer) => {
+	Customer.findById(req.params.customerId, (err, customer) => {
 		if (err) res.send(err);
 		res.json(customer);
 	});
 };
 exports.update_customer = (req, res) => {
 	Customer.findOneAndUpdate(
-		{ _id: req.params.customerId },
+		{ customerId: req.params.customerId },
 		req.body,
 		{ new: true },
 		(err, customer) => {
@@ -35,7 +35,7 @@ exports.update_customer = (req, res) => {
 exports.delete_customer = (req, res) => {
 	Customer.remove(
 		{
-			_id: req.params.customerId,
+			customerId: req.params.customerId,
 		},
 		(err, customer) => {
 			if (err) res.send(err);
