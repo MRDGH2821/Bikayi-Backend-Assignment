@@ -17,8 +17,11 @@ exports.create_customer = (req, res) => {
 };
 exports.read_customer = (req, res) => {
 	Customer.findById(req.params.customerId, (err, customer) => {
-		if (err) res.send(err);
-		res.json(customer);
+		if (err) {
+			res.send(err);
+		} else {
+			res.json(customer);
+		}
 	});
 };
 exports.update_customer = (req, res) => {
@@ -42,4 +45,32 @@ exports.delete_customer = (req, res) => {
 			res.json({ message: "Customer successfully deleted" });
 		}
 	);
+};
+
+exports.customer_orders = (req, res) => {
+	Customer.aggregate([
+		{
+			$lookup: {
+				from: "purchaseorders",
+				localField: "customerId",
+				foreignField: "customerId",
+				as: "purchaseOrder",
+			},
+		},
+
+
+	]).exec((err, result) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(result);
+		}
+	});
+	/*
+		.then((result) => res.send(result))
+		.catch((err) => {
+			res.send(err);
+			console.log(err);
+		});
+		*/
 };

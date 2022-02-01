@@ -11,4 +11,5 @@ module.exports = (app) => {
 		.get(customer.read_customer)
 		.put(customer.update_customer)
 		.delete(customer.delete_customer);
+	app.route("/customer/orders").get(customer.customer_orders);
 };
