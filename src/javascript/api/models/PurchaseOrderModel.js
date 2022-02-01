@@ -31,4 +31,4 @@ const PurchaseOrderSchema = new Schema({
 		default: Date.now,
 	},
 });
-module.exports = mongoose.model("Purchaseorder", PurchaseOrderSchema);
+module.exports = mongoose.model("PurchaseOrder", PurchaseOrderSchema);
